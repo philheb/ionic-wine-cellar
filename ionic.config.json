@@ -1,0 +1,7 @@
+{
+  "name": "my-cellar",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
