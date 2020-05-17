@@ -1,5 +1,5 @@
 {
-  "appId": "com.mycellar.app",
+  "appId": "io.ionic.starter",
   "appName": "my-cellar",
   "bundledWebRuntime": false,
   "npmClient": "npm",

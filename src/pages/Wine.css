@@ -1,0 +1,39 @@
+img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.wine-card {
+  --ion-grid-column-padding: 0;
+}
+
+.fav-wine-card {
+  width: 100%;
+  height: auto;
+  align-items: stretch;
+}
+
+.fav-wine-card img {
+  max-height: 180px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.fav-slides {
+  width: 100%;
+}
+
+.fav-slide {
+  height: auto;
+  /* width: 250px !important; */
+  align-items: stretch;
+}
+
+/* ion-content {
+  --background: linear-gradient(#0cebeb, #20e3b2, #29ffc6);
+}
+
+ion-toolbar {
+  --background: #0cebeb;
+} */
