@@ -1,6 +1,9 @@
 /* Ionic Variables and Theming. For more info, please see:
 http://ionicframework.com/docs/theming/ */
 
+@import url('https://fonts.googleapis.com/css2?family=Grand+Hotel&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sacramento&display=swap');
+
 /** Ionic CSS Variables **/
 :root {
   --ion-font-family: 'Avenir', 'Segoe UI', Tahoma, "Geneva", Verdana, sans-serif;
@@ -75,6 +78,16 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
+}
+
+ion-title {
+  font-family: 'Grand Hotel', cursive;
+  font-weight: 400;
+  font-size: 1.7em;
+}
+
+ion-card-title {
+  text-transform: capitalize;
 }
 
 /* @media (prefers-color-scheme: dark) { */

@@ -20,6 +20,7 @@ const WineContextProvider: React.FC = (props) => {
         favorite: bottle.favorite,
         price: bottle.price,
         addedOn: bottle.addedOn,
+        note: bottle.note,
       };
     });
     Storage.set({ key: "bottles", value: JSON.stringify(storableBottles) });
@@ -43,6 +44,7 @@ const WineContextProvider: React.FC = (props) => {
       base64Url: base64,
       favorite: false,
       addedOn: new Date().toString(),
+      note: bottle.note,
     };
     setBottles((curBottles) => {
       return [...curBottles, newBottle];
@@ -54,7 +56,20 @@ const WineContextProvider: React.FC = (props) => {
       const updatedBottles = curBottles.filter((bottle) => bottle.id !== id);
       return updatedBottles;
     });
-    // Storage.set({ key: "bottles", value: JSON.stringify(filteredBottles) });
+  };
+
+  const toggleFav = (id: string) => {
+    setBottles((curBottles) => {
+      const updatedBottles = [...curBottles];
+      const updatedBottleIndex = updatedBottles.findIndex(
+        (bottle) => bottle.id === id
+      );
+      console.log(updatedBottleIndex);
+      updatedBottles[updatedBottleIndex].favorite = !updatedBottles[
+        updatedBottleIndex
+      ].favorite;
+      return updatedBottles;
+    });
   };
 
   const initContext = useCallback(async () => {
@@ -77,6 +92,7 @@ const WineContextProvider: React.FC = (props) => {
         price: storedBottle.price,
         favorite: storedBottle.favorite,
         addedOn: storedBottle.addedOn,
+        note: storedBottle.note,
       });
     }
     setBottles(loadedBottles);
@@ -88,6 +104,7 @@ const WineContextProvider: React.FC = (props) => {
         bottles,
         addBottle,
         removeBottle,
+        toggleFav,
         initContext,
       }}
     >

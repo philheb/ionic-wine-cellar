@@ -1,15 +1,16 @@
 import React, { useState, useRef } from "react";
-import { IonIcon, IonButton, IonLabel } from "@ionic/react";
+import { IonIcon, IonButton, IonLabel, IonImg } from "@ionic/react";
 import {
   Capacitor,
   CameraResultType,
   CameraSource,
   Plugins,
 } from "@capacitor/core";
-import { imageOutline, camera } from "ionicons/icons";
+import { camera } from "ionicons/icons";
 import "./ImagePicker.css";
 
 import { Photo } from "../models/Bottle";
+import wineIcon from "../assets/icons/wine_icon.svg";
 
 const { Camera } = Plugins;
 
@@ -66,13 +67,13 @@ const ImagePicker: React.FC<{
     <React.Fragment>
       <div className='image-preview'>
         {!takenPhoto && (
-          <IonIcon icon={imageOutline} size='large' slot='center' />
+          <IonImg src={wineIcon} className='image-preview-icon' />
         )}
         {takenPhoto && <img src={takenPhoto.preview} alt='' />}
       </div>
       <IonButton fill='clear' onClick={handleTakePhoto}>
         <IonIcon icon={camera} slot='start' />
-        <IonLabel>Take Photo</IonLabel>
+        <IonLabel>Take Photo *</IonLabel>
       </IonButton>
       <input
         type='file'

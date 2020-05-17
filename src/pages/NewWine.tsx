@@ -17,11 +17,15 @@ import {
   IonButton,
   IonSelect,
   IonSelectOption,
+  IonTextarea,
+  IonText,
+  IonIcon,
 } from "@ionic/react";
 import ImagePicker from "../components/ImagePicker";
 import { Photo, WineType } from "../models/Bottle";
 
 import WineContext from "../data/wine-context";
+import { wine } from "ionicons/icons";
 
 const NewWine: React.FC = () => {
   const wineCtx = useContext(WineContext);
@@ -31,6 +35,7 @@ const NewWine: React.FC = () => {
 
   const nameRef = useRef<HTMLIonInputElement>(null);
   const priceRef = useRef<HTMLIonInputElement>(null);
+  const noteRef = useRef<HTMLIonTextareaElement>(null);
 
   const history = useHistory();
 
@@ -46,43 +51,46 @@ const NewWine: React.FC = () => {
   const addWineHandler = () => {
     const enteredName = nameRef.current!.value!.toString();
     const enteredPrice = Number(priceRef.current!.value);
-
-    if (!enteredName || !enteredPrice || !chosenWineType || !takenPhoto) {
+    const enteredNote = noteRef.current!.value;
+    if (!enteredName || !chosenWineType || !takenPhoto) {
       // TODO: alert in incomplete field(s)
       return;
     }
-
     const newBottle = {
       name: enteredName,
       type: chosenWineType,
       price: enteredPrice,
       photo: takenPhoto,
+      note: enteredNote,
     };
-
     wineCtx.addBottle(newBottle);
-
-    // history.replace("/wine-list");
+    history.length > 0 ? history.goBack() : history.replace("/");
   };
 
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Add A Bottle</IonTitle>
+          <IonTitle>My Wine Cellar</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
         <IonList>
+          <IonText>
+            <h2 className='ion-padding'>
+              Add a bottle <IonIcon icon={wine} size='small' color='primary' />
+            </h2>
+          </IonText>
           <IonItem>
-            <IonLabel position='floating'>Name</IonLabel>
+            <IonLabel position='floating'>Name *</IonLabel>
             <IonInput type='text' ref={nameRef}></IonInput>
           </IonItem>
           <IonItem>
-            <IonLabel position='floating'>Type</IonLabel>
+            <IonLabel position='floating'>Type *</IonLabel>
             <IonSelect onIonChange={selectWineTypeHandler}>
               <IonSelectOption value='red'>Red</IonSelectOption>
               <IonSelectOption value='white'>White</IonSelectOption>
-              <IonSelectOption value='rosé'>White</IonSelectOption>
+              <IonSelectOption value='rosé'>Rosé</IonSelectOption>
               <IonSelectOption value='sparkling'>Sparkling</IonSelectOption>
               <IonSelectOption value='natural'>Natural</IonSelectOption>
               <IonSelectOption value='other'>Other</IonSelectOption>
@@ -91,6 +99,10 @@ const NewWine: React.FC = () => {
           <IonItem>
             <IonLabel position='floating'>Price</IonLabel>
             <IonInput type='number' ref={priceRef}></IonInput>
+          </IonItem>
+          <IonItem>
+            <IonLabel position='floating'>Note</IonLabel>
+            <IonTextarea ref={noteRef} rows={2}></IonTextarea>
           </IonItem>
         </IonList>
         <IonGrid>

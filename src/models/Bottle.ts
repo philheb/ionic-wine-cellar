@@ -2,11 +2,12 @@ export interface Bottle {
   id: string;
   name: string;
   type: WineType;
-  price: number;
+  price: number | undefined | null;
   favorite: boolean;
   imagePath: string;
   base64Url: string;
   addedOn: string;
+  note: string | undefined | null;
 }
 
 export interface NewBottle {
@@ -14,6 +15,7 @@ export interface NewBottle {
   type: WineType;
   price: number;
   photo: Photo;
+  note: string | undefined | null;
 }
 
 export interface Photo {
