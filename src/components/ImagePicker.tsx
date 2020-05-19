@@ -47,7 +47,6 @@ const ImagePicker: React.FC<{
         quality: 80,
         width: 500,
       });
-      console.log(photo);
       if (!photo || !photo.webPath) {
         return;
       }

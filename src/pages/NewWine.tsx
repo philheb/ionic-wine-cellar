@@ -64,7 +64,7 @@ const NewWine: React.FC = () => {
       note: enteredNote,
     };
     wineCtx.addBottle(newBottle);
-    history.length > 0 ? history.goBack() : history.replace("/");
+    // history.length > 0 ? history.goBack() : history.replace("/");
   };
 
   return (
@@ -82,11 +82,11 @@ const NewWine: React.FC = () => {
             </h2>
           </IonText>
           <IonItem>
-            <IonLabel position='floating'>Name *</IonLabel>
+            <IonLabel position='stacked'>Name *</IonLabel>
             <IonInput type='text' ref={nameRef}></IonInput>
           </IonItem>
           <IonItem>
-            <IonLabel position='floating'>Type *</IonLabel>
+            <IonLabel position='stacked'>Type *</IonLabel>
             <IonSelect onIonChange={selectWineTypeHandler}>
               <IonSelectOption value='red'>Red</IonSelectOption>
               <IonSelectOption value='white'>White</IonSelectOption>
@@ -97,12 +97,20 @@ const NewWine: React.FC = () => {
             </IonSelect>
           </IonItem>
           <IonItem>
-            <IonLabel position='floating'>Price</IonLabel>
-            <IonInput type='number' ref={priceRef}></IonInput>
+            <IonLabel position='stacked'>Price</IonLabel>
+            <IonInput
+              type='number'
+              inputMode='decimal'
+              ref={priceRef}
+            ></IonInput>
           </IonItem>
           <IonItem>
-            <IonLabel position='floating'>Note</IonLabel>
-            <IonTextarea ref={noteRef} rows={2}></IonTextarea>
+            <IonLabel position='stacked'>Note</IonLabel>
+            <IonTextarea
+              ref={noteRef}
+              rows={2}
+              placeholder='Location, Year, Pairing, etc.'
+            ></IonTextarea>
           </IonItem>
         </IonList>
         <IonGrid>

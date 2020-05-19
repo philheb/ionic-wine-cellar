@@ -64,7 +64,6 @@ const WineContextProvider: React.FC = (props) => {
       const updatedBottleIndex = updatedBottles.findIndex(
         (bottle) => bottle.id === id
       );
-      console.log(updatedBottleIndex);
       updatedBottles[updatedBottleIndex].favorite = !updatedBottles[
         updatedBottleIndex
       ].favorite;

@@ -46,15 +46,15 @@ const Favorites: React.FC = () => {
           </IonButtons>
         </IonToolbar>
       </IonHeader>
-      <IonContent className='ion-padding'>
+      <IonContent>
         <IonText>
-          <h2>
+          <h2 className='ion-padding'>
             Your Favorites <IonIcon icon={heart} color='danger' size='small' />
           </h2>
         </IonText>
         {bottles.length < 1 && (
           <IonText color='medium'>
-            <h4>You have no favorite bottles.</h4>
+            <h4 className='ion-padding'>You have no favorite bottles.</h4>
           </IonText>
         )}
         {bottles.map((bottle) => {
