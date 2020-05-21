@@ -64,7 +64,7 @@ const NewWine: React.FC = () => {
       note: enteredNote,
     };
     wineCtx.addBottle(newBottle);
-    // history.length > 0 ? history.goBack() : history.replace("/");
+    history.length > 0 ? history.goBack() : history.replace("/");
   };
 
   return (
