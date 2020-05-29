@@ -15,6 +15,8 @@ import { add, wineOutline, heartOutline } from "ionicons/icons";
 import Wine from "./pages/Wine";
 import NewWine from "./pages/NewWine";
 import Favorites from "./pages/Favorites";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 import WineContext from "./data/wine-context";
 
@@ -51,6 +53,8 @@ const App: React.FC = () => {
       <IonReactRouter>
         <IonTabs>
           <IonRouterOutlet>
+            <Route path='/login' component={Login} exact={true} />
+            <Route path='/register' component={Register} exact={true} />
             <Route path='/wine-list' component={Wine} exact={true} />
             <Route path='/new-wine' component={NewWine} exact={true} />
             <Route path='/favorites' component={Favorites} exact={true} />
