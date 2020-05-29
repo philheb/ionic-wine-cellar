@@ -20,6 +20,7 @@ import {
   IonTextarea,
   IonText,
   IonIcon,
+  isPlatform,
 } from "@ionic/react";
 import ImagePicker from "../components/ImagePicker";
 import { Photo, WineType } from "../models/Bottle";
@@ -70,8 +71,8 @@ const NewWine: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar>
-          <IonTitle>My Wine Cellar</IonTitle>
+        <IonToolbar color={isPlatform("android") ? "primary" : ""}>
+          <IonTitle>My Wine Cave</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
@@ -83,7 +84,11 @@ const NewWine: React.FC = () => {
           </IonText>
           <IonItem>
             <IonLabel position='stacked'>Name *</IonLabel>
-            <IonInput type='text' ref={nameRef}></IonInput>
+            <IonInput
+              type='text'
+              autocapitalize='true'
+              ref={nameRef}
+            ></IonInput>
           </IonItem>
           <IonItem>
             <IonLabel position='stacked'>Type *</IonLabel>

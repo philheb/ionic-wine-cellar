@@ -1,6 +1,6 @@
 {
-  "appId": "com.mycellar.app",
-  "appName": "my-cellar",
+  "appId": "ca.learningtocode.wine",
+  "appName": "my-wine-cave",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "build",

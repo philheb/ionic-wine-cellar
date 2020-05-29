@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package ca.learningtocode.wine;
 
 import android.os.Bundle;
 

@@ -10,8 +10,6 @@ import {
   IonText,
   IonIcon,
   IonCard,
-  IonFab,
-  IonFabButton,
   IonCardHeader,
   IonCardSubtitle,
   IonCardTitle,
@@ -20,8 +18,9 @@ import {
   IonCol,
   IonButtons,
   IonButton,
+  isPlatform,
 } from "@ionic/react";
-import { heart, trashOutline, heartOutline, wine, add } from "ionicons/icons";
+import { heart, wine, add } from "ionicons/icons";
 
 import WineContext from "../data/wine-context";
 
@@ -32,13 +31,13 @@ const Favorites: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar>
+        <IonToolbar color={isPlatform("android") ? "primary" : ""}>
           <IonButtons slot='start'>
             <IonButton onClick={() => history.push("/wine-list")}>
               <IonIcon slot='icon-only' icon={wine} />
             </IonButton>
           </IonButtons>
-          <IonTitle>My Wine Cellar</IonTitle>
+          <IonTitle>My Wine Cave</IonTitle>
           <IonButtons slot='end'>
             <IonButton onClick={() => history.push("/new-wine")}>
               <IonIcon slot='icon-only' icon={add} />
@@ -67,7 +66,7 @@ const Favorites: React.FC = () => {
             <IonCard button className='wine-card' key={bottle.id}>
               <img src={bottle.base64Url} alt='Wine bottle' />
 
-              <IonFab vertical='top' horizontal='end'>
+              {/* <IonFab vertical='top' horizontal='end'>
                 <IonFabButton
                   size='small'
                   color='transparent'
@@ -89,7 +88,7 @@ const Favorites: React.FC = () => {
                     <IonIcon icon={heartOutline} color='danger' />
                   )}
                 </IonFabButton>
-              </IonFab>
+              </IonFab> */}
 
               <IonCardHeader>
                 <IonCardSubtitle mode='ios'>{bottle.type}</IonCardSubtitle>

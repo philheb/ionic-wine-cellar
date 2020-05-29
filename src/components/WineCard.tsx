@@ -40,7 +40,7 @@ const WineCard: React.FC<{
           color='transparent'
           onClick={() => props.removeBottle(bottle.id)}
         >
-          <IonIcon icon={trashOutline} color='primary' />
+          <IonIcon icon={trashOutline} color='secondary' />
         </IonFabButton>
       </IonFab>
 

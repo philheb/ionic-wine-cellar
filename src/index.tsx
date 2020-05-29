@@ -19,4 +19,4 @@ ReactDOM.render(
 
 defineCustomElements(window);
 
-serviceWorker.unregister();
+serviceWorker.register();
