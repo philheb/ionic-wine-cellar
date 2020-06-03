@@ -14,6 +14,7 @@ import {
   IonIcon,
   IonRow,
   IonCol,
+  IonToast,
 } from "@ionic/react";
 import { eye, eyeOff, personAdd } from "ionicons/icons";
 import { Link } from "react-router-dom";
@@ -25,12 +26,21 @@ const Register: React.FC = () => {
 
   const [eyeIcon, setEyeIcon] = useState<string>(eye);
   const [showPassword, setShowPassword] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const [message, setMessage] = useState("");
 
   const registerHandler = () => {
+    setMessage("");
     const name = nameRef.current?.value;
     const email = emailRef.current?.value;
     const password = passwordRef.current?.value;
-    console.log(name, email, password);
+
+    if (!name || !email || !password) {
+      //TODO: Better error handling
+      setMessage("Please fill out all the fields.");
+      setShowToast(true);
+      return;
+    }
   };
 
   const showPasswordHandler = () => {
@@ -59,17 +69,18 @@ const Register: React.FC = () => {
         <IonList>
           <IonItem>
             <IonLabel position='floating'>Name</IonLabel>
-            <IonInput type='text' ref={nameRef} />
+            <IonInput type='text' ref={nameRef} required />
           </IonItem>
           <IonItem>
             <IonLabel position='floating'>Email</IonLabel>
-            <IonInput type='email' ref={emailRef} />
+            <IonInput type='email' ref={emailRef} required />
           </IonItem>
           <IonItem>
             <IonLabel position='floating'>Password</IonLabel>
             <IonInput
               type={showPassword ? "text" : "password"}
               ref={passwordRef}
+              required
             />
             <IonButton
               fill='clear'
@@ -102,6 +113,15 @@ const Register: React.FC = () => {
           </IonCol>
         </IonRow>
       </IonContent>
+      <IonToast
+        isOpen={showToast}
+        onDidDismiss={() => {
+          setShowToast(false);
+          setMessage("");
+        }}
+        message={message}
+        duration={3000}
+      />
     </IonPage>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useState, useRef } from "react";
 import {
   IonPage,
   IonHeader,
@@ -13,17 +13,36 @@ import {
   IonButton,
   IonRow,
   IonCol,
+  IonToast,
 } from "@ionic/react";
 import { Link } from "react-router-dom";
+import { login } from "../firebaseConfig";
 
 const Login: React.FC = () => {
   const emailRef = useRef<HTMLIonInputElement>(null);
   const passwordRef = useRef<HTMLIonInputElement>(null);
+  const [showToast, setShowToast] = useState(false);
+  const [message, setMessage] = useState("");
 
-  const loginHandler = () => {
-    const email = emailRef.current?.value;
-    const password = passwordRef.current?.value;
-    console.log(email, password);
+  const loginHandler = async () => {
+    const email = emailRef.current?.value?.toString();
+    const password = passwordRef.current?.value?.toString();
+
+    if (!email || !password) {
+      //TODO: Better error handling
+      return;
+    }
+
+    const res = await login(email, password);
+    if (res) {
+      setMessage("You successfully logged in!");
+      setShowToast(true);
+    } else {
+      setMessage(
+        "There was a problem logging in. Check your email and password or create an account."
+      );
+      setShowToast(true);
+    }
   };
 
   return (
@@ -68,6 +87,15 @@ const Login: React.FC = () => {
           </IonRow>
         </IonList>
       </IonContent>
+      <IonToast
+        isOpen={showToast}
+        onDidDismiss={() => {
+          setShowToast(false);
+          setMessage("");
+        }}
+        message={message}
+        duration={3000}
+      />
     </IonPage>
   );
 };
