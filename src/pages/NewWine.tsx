@@ -61,7 +61,8 @@ const NewWine: React.FC = () => {
       name: enteredName,
       type: chosenWineType,
       price: enteredPrice,
-      photo: takenPhoto,
+      photoUrl:
+        "https://previews.123rf.com/images/derzai/derzai1310/derzai131000017/22731515-glass-red-wine-bottle-vector-illustration-glass-bottle-collection-item-8-.jpg",
       note: enteredNote,
     };
     wineCtx.addBottle(newBottle);

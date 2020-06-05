@@ -10,6 +10,7 @@ export const AuthContext = React.createContext<Partial<ContextProps>>({});
 export const AuthProvider = ({ children }: any) => {
   const [user, setUser] = useState(null as firebase.User | null);
   const [loadingAuthState, setLoadingAuthState] = useState(true);
+
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user: any) => {
       setUser(user);

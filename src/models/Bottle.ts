@@ -14,9 +14,16 @@ export interface NewBottle {
   name: string;
   type: WineType;
   price: number;
-  photo: Photo;
+  photoUrl: string;
   note: string | undefined | null;
 }
+// export interface NewBottle {
+//   name: string;
+//   type: WineType;
+//   price: number;
+//   photo: Photo;
+//   note: string | undefined | null;
+// }
 
 export interface Photo {
   path: string | undefined;

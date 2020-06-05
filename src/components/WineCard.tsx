@@ -18,7 +18,7 @@ import WineContext from "../context/wine-context";
 import { Bottle } from "../models/Bottle";
 
 const WineCard: React.FC<{
-  bottle: Bottle;
+  bottle: any;
   removeBottle: (id: string) => void;
 }> = (props) => {
   const { bottle } = props;
@@ -32,7 +32,7 @@ const WineCard: React.FC<{
 
   return (
     <IonCard button className='wine-card' key={bottle.id}>
-      <img src={bottle.base64Url} alt='Wine bottle' />
+      <img src={bottle.photoUrl} alt='Wine bottle' />
 
       <IonFab vertical='top' horizontal='end'>
         <IonFabButton
