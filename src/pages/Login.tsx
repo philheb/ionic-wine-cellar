@@ -14,6 +14,7 @@ import {
   IonRow,
   IonCol,
   IonToast,
+  IonLoading,
 } from "@ionic/react";
 import { Link } from "react-router-dom";
 import { login } from "../firebaseConfig";
@@ -21,10 +22,12 @@ import { login } from "../firebaseConfig";
 const Login: React.FC = () => {
   const emailRef = useRef<HTMLIonInputElement>(null);
   const passwordRef = useRef<HTMLIonInputElement>(null);
-  const [showToast, setShowToast] = useState(false);
-  const [message, setMessage] = useState("");
+  const [showToast, setShowToast] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const loginHandler = async () => {
+    setIsLoading(true);
     const email = emailRef.current?.value?.toString();
     const password = passwordRef.current?.value?.toString();
 
@@ -33,15 +36,16 @@ const Login: React.FC = () => {
       return;
     }
 
-    const res = await login(email, password);
-    if (res) {
-      setMessage("You successfully logged in!");
+    try {
+      await login(email, password);
+      setMessage("You have successfully signed in");
       setShowToast(true);
-    } else {
-      setMessage(
-        "There was a problem logging in. Check your email and password or create an account."
-      );
+      setIsLoading(false);
+    } catch (err) {
+      setMessage(err.message);
       setShowToast(true);
+      setIsLoading(false);
+      return err;
     }
   };
 
@@ -52,6 +56,9 @@ const Login: React.FC = () => {
           <IonTitle>My Wine Cave</IonTitle>
         </IonToolbar>
       </IonHeader>
+
+      <IonLoading isOpen={isLoading} message='Signing in...' duration={0} />
+
       <IonContent>
         <IonText>
           <h2 className='ion-padding'>Login</h2>

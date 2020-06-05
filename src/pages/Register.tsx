@@ -15,11 +15,16 @@ import {
   IonRow,
   IonCol,
   IonToast,
+  IonNote,
+  IonLoading,
 } from "@ionic/react";
 import { eye, eyeOff, personAdd } from "ionicons/icons";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { register } from "../firebaseConfig";
 
 const Register: React.FC = () => {
+  const history = useHistory();
+
   const nameRef = useRef<HTMLIonInputElement>(null);
   const emailRef = useRef<HTMLIonInputElement>(null);
   const passwordRef = useRef<HTMLIonInputElement>(null);
@@ -28,18 +33,41 @@ const Register: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [message, setMessage] = useState("");
+  const [passwordNoteColor, setPasswordNoteColor] = useState("medium");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const registerHandler = () => {
+  const registerHandler = async () => {
+    setIsLoading(true);
     setMessage("");
-    const name = nameRef.current?.value;
-    const email = emailRef.current?.value;
-    const password = passwordRef.current?.value;
+    setPasswordNoteColor("medium");
+    setShowToast(false);
+    const name = nameRef.current?.value?.toString().trim();
+    const email = emailRef.current?.value?.toString().trim();
+    const password = passwordRef.current?.value?.toString().trim();
 
     if (!name || !email || !password) {
       //TODO: Better error handling
       setMessage("Please fill out all the fields.");
       setShowToast(true);
       return;
+    }
+
+    if (password.length < 6) {
+      setPasswordNoteColor("danger");
+      return;
+    }
+    try {
+      const res = await register(name, email, password);
+      if (res) {
+        setMessage("You have register successfully!");
+        setShowToast(true);
+      }
+      setIsLoading(false);
+      history.push("/wine-list");
+    } catch (err) {
+      setMessage(err.message);
+      setShowToast(true);
+      setIsLoading(false);
     }
   };
 
@@ -60,27 +88,28 @@ const Register: React.FC = () => {
           <IonTitle>My Wine Cave</IonTitle>
         </IonToolbar>
       </IonHeader>
+      <IonLoading isOpen={isLoading} message='Registering...' duration={0} />
       <IonContent>
         <IonText>
           <h2 className='ion-padding'>
             Sign Up <IonIcon icon={personAdd} size='small' color='primary' />
           </h2>
         </IonText>
+
         <IonList>
           <IonItem>
             <IonLabel position='floating'>Name</IonLabel>
-            <IonInput type='text' ref={nameRef} required />
+            <IonInput type='text' ref={nameRef} />
           </IonItem>
           <IonItem>
             <IonLabel position='floating'>Email</IonLabel>
-            <IonInput type='email' ref={emailRef} required />
+            <IonInput type='email' ref={emailRef} />
           </IonItem>
           <IonItem>
             <IonLabel position='floating'>Password</IonLabel>
             <IonInput
               type={showPassword ? "text" : "password"}
               ref={passwordRef}
-              required
             />
             <IonButton
               fill='clear'
@@ -91,18 +120,24 @@ const Register: React.FC = () => {
               <IonIcon icon={eyeIcon} slot='icon-only' />
             </IonButton>
           </IonItem>
+          <IonNote color={passwordNoteColor}>
+            Must be at least 6 characters
+          </IonNote>
         </IonList>
+
         <IonRow className='ion-text-center ion-margin-top'>
           <IonCol>
             <IonButton
               className='ion-margin'
               onClick={registerHandler}
               expand='block'
+              type='submit'
             >
               Login
             </IonButton>
           </IonCol>
         </IonRow>
+
         <IonRow className='ion-text-center'>
           <IonCol>
             <IonText>

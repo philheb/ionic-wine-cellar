@@ -91,6 +91,10 @@ ion-card-title {
   text-transform: capitalize;
 }
 
+ion-note {
+  padding-left: 20px;
+}
+
 /* @media (prefers-color-scheme: dark) { */
 /*
    * Dark Colors
