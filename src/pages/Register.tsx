@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import {
   IonPage,
   IonHeader,
@@ -20,9 +20,11 @@ import {
 } from "@ionic/react";
 import { eye, eyeOff, personAdd } from "ionicons/icons";
 import { Link, useHistory } from "react-router-dom";
-import { register } from "../firebaseConfig";
+import firebase from "../firebaseConfig";
+import { AuthContext } from "../context/AuthContextProvider";
 
 const Register: React.FC = () => {
+  const authCtx = useContext(AuthContext);
   const history = useHistory();
 
   const nameRef = useRef<HTMLIonInputElement>(null);
@@ -56,19 +58,48 @@ const Register: React.FC = () => {
       setPasswordNoteColor("danger");
       return;
     }
-    try {
-      const res = await register(name, email, password);
-      if (res) {
-        setMessage("You have register successfully!");
-        setShowToast(true);
-      }
-      setIsLoading(false);
-      history.push("/wine-list");
-    } catch (err) {
-      setMessage(err.message);
-      setShowToast(true);
-      setIsLoading(false);
-    }
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then((userCredential: firebase.auth.UserCredential) => {
+        authCtx.setUser(userCredential);
+        const db = firebase.firestore();
+        db.collection("Users")
+          .doc(userCredential.user!.uid)
+          .set({
+            email: email,
+            name: name,
+          })
+          .then(() => {
+            console.log("ok");
+            setMessage("You have register successfully!");
+            setShowToast(true);
+            setIsLoading(false);
+            history.push("/wine-list");
+          })
+          .catch((error) => {
+            console.log(error.message);
+            setMessage(error.message);
+            setShowToast(true);
+            setIsLoading(false);
+          });
+      });
+    // try {
+    //   const res = await register(name, email, password);
+    //   authCtx.setUser(res);
+    //   const db = firebase.firestore();
+    //   db.collection("Users").doc(res.user!.uid).set({
+    //     email: email,
+    //     name: name,
+    //   });
+    //   setMessage("You have register successfully!");
+    //   setShowToast(true);
+    //   setIsLoading(false);
+    // } catch (err) {
+    //   setMessage(err.message);
+    //   setShowToast(true);
+    //   setIsLoading(false);
+    // }
   };
 
   const showPasswordHandler = () => {

@@ -4,12 +4,15 @@ import App from "./App";
 import { defineCustomElements } from "@ionic/pwa-elements/loader";
 import * as serviceWorker from "./serviceWorker";
 
-import WineContextProvider from "./data/WineContextProvider";
+import WineContextProvider from "./context/WineContextProvider";
+import { AuthProvider } from "./context/AuthContextProvider";
 
 ReactDOM.render(
-  <WineContextProvider>
-    <App />
-  </WineContextProvider>,
+  <AuthProvider>
+    <WineContextProvider>
+      <App />
+    </WineContextProvider>
+  </AuthProvider>,
   document.getElementById("root")
 );
 

@@ -22,7 +22,7 @@ import {
   isPlatform,
 } from "@ionic/react";
 
-import WineContext from "../data/wine-context";
+import WineContext from "../context/wine-context";
 
 import "./Wine.css";
 import { heart, wine, addOutline, filter, sadOutline } from "ionicons/icons";

@@ -22,7 +22,7 @@ import {
 } from "@ionic/react";
 import { heart, wine, add } from "ionicons/icons";
 
-import WineContext from "../data/wine-context";
+import WineContext from "../context/wine-context";
 
 const Favorites: React.FC = () => {
   const wineCtx = useContext(WineContext);

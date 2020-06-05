@@ -14,7 +14,7 @@ import { IonIcon } from "@ionic/react";
 import { trashOutline, heartOutline } from "ionicons/icons";
 import { heart } from "ionicons/icons";
 
-import WineContext from "../data/wine-context";
+import WineContext from "../context/wine-context";
 import { Bottle } from "../models/Bottle";
 
 const WineCard: React.FC<{

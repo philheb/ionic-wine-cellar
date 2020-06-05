@@ -10,7 +10,6 @@ const config = {
   appId: process.env.REACT_APP_ID,
   measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 };
-console.log(config.apiKey);
 
 firebase.initializeApp(config);
 
@@ -18,29 +17,16 @@ export const getCurrentUser = async () => {
   return firebase.auth().currentUser;
 };
 
-export const login = async (email: string, password: string) => {
-  try {
-    const res = await firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password);
-    console.log(res);
-    return true;
-  } catch (err) {
-    throw err;
-  }
-};
+// export const login = async (email: string, password: string) => {
+//   try {
+//     const res = await firebase
+//       .auth()
+//       .signInWithEmailAndPassword(email, password);
+//     console.log(res);
+//     return true;
+//   } catch (err) {
+//     throw err;
+//   }
+// };
 
-export const register = async (
-  name: string,
-  email: string,
-  password: string
-) => {
-  try {
-    const res = await firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password);
-    return res;
-  } catch (err) {
-    throw err;
-  }
-};
+export default firebase;

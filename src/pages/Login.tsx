@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import {
   IonPage,
   IonHeader,
@@ -16,12 +16,19 @@ import {
   IonToast,
   IonLoading,
 } from "@ionic/react";
-import { Link } from "react-router-dom";
-import { login } from "../firebaseConfig";
+import { Link, useHistory } from "react-router-dom";
+import firebase from "../firebaseConfig";
+// import { login } from "../firebaseConfig";
+import { AuthContext } from "../context/AuthContextProvider";
 
 const Login: React.FC = () => {
+  const authCtx = useContext(AuthContext);
+  console.log(authCtx);
+  const history = useHistory();
+
   const emailRef = useRef<HTMLIonInputElement>(null);
   const passwordRef = useRef<HTMLIonInputElement>(null);
+
   const [showToast, setShowToast] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -36,17 +43,23 @@ const Login: React.FC = () => {
       return;
     }
 
-    try {
-      await login(email, password);
-      setMessage("You have successfully signed in");
-      setShowToast(true);
-      setIsLoading(false);
-    } catch (err) {
-      setMessage(err.message);
-      setShowToast(true);
-      setIsLoading(false);
-      return err;
-    }
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then((res) => {
+        authCtx.setUser(res);
+        console.log(res, "res");
+        setMessage("You have successfully signed in");
+        setShowToast(true);
+        setIsLoading(false);
+        history.push("/wine-list");
+      })
+      .catch((error) => {
+        console.log(error.message);
+        setMessage(error.message);
+        setShowToast(true);
+        setIsLoading(false);
+      });
   };
 
   return (

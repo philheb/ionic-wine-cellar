@@ -18,7 +18,7 @@ import Favorites from "./pages/Favorites";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 
-import WineContext from "./data/wine-context";
+import WineContext from "./context/wine-context";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";

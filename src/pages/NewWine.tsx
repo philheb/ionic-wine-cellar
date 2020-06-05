@@ -25,7 +25,7 @@ import {
 import ImagePicker from "../components/ImagePicker";
 import { Photo, WineType } from "../models/Bottle";
 
-import WineContext from "../data/wine-context";
+import WineContext from "../context/wine-context";
 import { wine } from "ionicons/icons";
 
 const NewWine: React.FC = () => {
